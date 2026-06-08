@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Email Spam Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="panel">
+            <div class="heading">
+                <p class="eyebrow">PyTorch + Flask</p>
+                <h1>Email Spam Classifier</h1>
+                <p class="subtitle">Paste an email or message and check whether the model thinks it is spam.</p>
+            </div>
+
+            <form method="post" class="classifier-form">
+                <label for="email_text">Email/message text</label>
+                <textarea
+                    id="email_text"
+                    name="email_text"
+                    rows="8"
+                    placeholder="Example: Congratulations you won a free prize click now"
+                    required
+                >{{ email_text }}</textarea>
+                <button type="submit">Check Message</button>
+            </form>
+
+            {% if result %}
+                <section class="result {% if result.is_spam %}spam{% else %}safe{% endif %}">
+                    <p class="result-label">Prediction</p>
+                    <h2>{{ result.label }}</h2>
+                    <p>Spam probability: <strong>{{ result.percent }}</strong></p>
+                </section>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

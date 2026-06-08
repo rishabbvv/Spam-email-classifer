@@ -1,25 +1,45 @@
-# Small PyTorch Spam Email Generator
+# Flask PyTorch Email Spam Classifier
 
-This project contains a tiny character-level GRU that learns from a short embedded
-spam-like email corpus and generates new synthetic examples.
+This is a small beginner-friendly spam classifier website built with Flask and
+PyTorch. It trains on a tiny built-in dataset of spam and normal messages, then
+predicts whether a new email/message is spam.
 
-## Run
-
-```powershell
-python spam_generator.py
-```
-
-Useful options:
+## Install
 
 ```powershell
-python spam_generator.py --epochs 80 --temperature 0.9 --seeds claim urgent bonus
+pip install -r requirements.txt
 ```
 
-Install PyTorch first if it is not already available:
+## Run the Website
+
+Start the Flask app:
 
 ```powershell
-pip install torch
+python app.py
 ```
 
-The generated text is synthetic and only intended for learning, testing, or data
-augmentation experiments.
+Then open this URL in your browser:
+
+http://127.0.0.1:5000
+
+Paste an email/message into the text box and click **Check Message**.
+
+## Run from Terminal
+
+```powershell
+python spam_classifier.py --email "Congratulations you won a free prize click now"
+```
+
+## What It Does
+
+- Converts email text into word-count features.
+- Trains a small neural network using PyTorch.
+- Serves a Flask web page where users can enter a message.
+- Outputs `SPAM` or `NOT SPAM`.
+- Shows the spam probability.
+
+The first website run trains the model and saves `spam_classifier.pt`. Later runs
+reuse that saved model.
+
+This dataset is intentionally small for learning. For a real spam detector, use
+a larger labeled dataset and test it on emails the model has never seen.
